@@ -1,6 +1,8 @@
 
 import requests
+
 url = 'http://127.0.0.1:9696/predict'
+
 customer_id = 'xyz-123'
 customer = {
     "gender": "female",

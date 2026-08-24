@@ -25,7 +25,7 @@ COPY ["prediction1.py", "model_C=1.0.bin", "./"]
 # 这只是文档说明，不会实际打开端口
 # 真正的端口映射需要在 docker run 时用 -p 参数
 EXPOSE 9696
-# 设置容器的入口命令
+# 设置容器的入口命令,它是容器启动时“必须执行”的主命令
 # 容器启动时自动执行 gunicorn，绑定 0.0.0.0:9696
 # prediction1:app 表示 prediction1.py 文件中的 app 对象（Flask 实例）
 # 这个命令会覆盖 Dockerfile 中的 CMD，但不会被 docker run 的命令行参数覆盖

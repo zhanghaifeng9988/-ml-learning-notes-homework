@@ -29,6 +29,9 @@ env/
 ENV/
 .venv
 API.txt
+**/.venv/
+**/__pycache__/
+
 
 # IDE
 .vscode/
