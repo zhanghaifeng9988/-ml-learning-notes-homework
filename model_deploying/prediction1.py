@@ -37,6 +37,11 @@ def predict():
     
     return jsonify(result)
 
+# aws部署时，需要一个健康检查的接口
+# 这样 ELB 访问 / 时就能得到 200 状态码，健康检查通过。
+@app.route('/')
+def health_check():
+    return "OK", 200
 #""" result = {
 #    'churn': bool(churn),
 #    'probability': float(y_pred)

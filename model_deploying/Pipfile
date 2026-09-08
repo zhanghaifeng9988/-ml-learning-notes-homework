@@ -11,6 +11,7 @@ pandas = "==3.0.3"
 scikit-learn = "==1.8.0"
 
 [dev-packages]
+awsebcli = "*"
 
 [requires]
 python_version = "3.11"

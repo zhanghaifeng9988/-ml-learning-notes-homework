@@ -1,13 +1,22 @@
 # 指定基础镜像
 # 使用 Python 3.11.16 的 slim 版本（精简版，基于 Debian Bookworm）
 FROM python:3.11.16-slim-bookworm
-
+# 在镜像中安装 pipenv（Python 依赖管理工具）
+# pipenv 用于根据 Pipfile 和 Pipfile.lock 安装依赖
+RUN pip install pipenv -i https://pypi.tuna.tsinghua.edu.cn/simple
+# 设置工作目录为 /app
+# 后续的 COPY、RUN 等命令都在这个目录下执行
+# 如果目录不存在，会自动创建
 WORKDIR /app
-
-COPY  requirements.txt .
- 
-RUN pip install --no-cache-dir -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/  --trusted-host mirrors.aliyun.com
-
+# 从宿主机复制 Pipfile 和 Pipfile.lock 到镜像的 /app 目录
+# [ ] 表示列表格式，可以一次复制多个文件
+# "./" 表示当前工作目录（即 /app）
+COPY ["Pipfile", "Pipfile.lock", "./"]
+# 运行 pipenv install 安装所有依赖
+# --system: 安装到系统的 Python 环境，而不是虚拟环境
+# --deploy: 严格模式，要求 Pipfile.lock 存在且与 Pipfile 匹配
+#           如果版本不匹配，构建会失败（保证可重现）
+RUN pipenv install --system --deploy  -i https://pypi.tuna.tsinghua.edu.cn/simple
 # 复制业务代码和模型文件到镜像
 # prediction1.py: Flask 应用代码
 # model_C=1.0.bin: 训练好的机器学习模型文件
