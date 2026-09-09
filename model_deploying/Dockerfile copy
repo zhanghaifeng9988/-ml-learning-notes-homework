@@ -30,3 +30,5 @@ EXPOSE 9696
 # prediction1:app 表示 prediction1.py 文件中的 app 对象（Flask 实例）
 # 这个命令会覆盖 Dockerfile 中的 CMD，但不会被 docker run 的命令行参数覆盖
 ENTRYPOINT ["gunicorn", "--bind=0.0.0.0:9696", "prediction1:app"]
+
+
