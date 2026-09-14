@@ -1,6 +1,6 @@
 import requests
 import json
-# 它是 AWS Lambda 运行时接口（RIC）的标准调用地址
+# 它是 AWS Lambda 运行时接口（RIC）的标准调用地址,容器内已经内置
 url = 'http://localhost:9999/2015-03-31/functions/function/invocations'
 
 customer = {

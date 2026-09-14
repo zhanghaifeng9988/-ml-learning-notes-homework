@@ -28,7 +28,7 @@ customer_data = {
 }
 
 response = lambda_client.invoke(
-    FunctionName='churn-prediction', # 把数据发给云上的 Lambda 函数 churn-prediction
+    FunctionName='churn-prediction-docker', # 把数据发给云上的 Lambda 函数 
     InvocationType='RequestResponse',# 同步调用,本地脚本发出请求后会等待，直到 Lambda 执行完并返回结果，才继续往下走
     Payload=json.dumps(customer_data) #
 )
@@ -36,3 +36,4 @@ response = lambda_client.invoke(
 
 result = json.loads(response['Payload'].read()) #读取 Lambda 返回的预测结果
 print(json.dumps(result, indent=2))
+

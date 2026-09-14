@@ -2,7 +2,7 @@
 
 # 基础镜像
 FROM public.ecr.aws/lambda/python:3.13
-# 安装 uv（从官方镜像复制二进制，比 pip 安装更快更干净）
+# 安装 uv（从官方镜像复制二进制文件，比 pip 安装uv更快更干净）
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 
 # 复制依赖文件，复制到镜像的工作目录 /var/task
@@ -21,4 +21,3 @@ COPY lambda_function.py .
 # 设置入口点：告诉 Lambda 运行时，函数入口是 lambda_function 模块中的 lambda_handler 函数。
 # 容器启动时，运行时接口会调用这个处理函数。
 CMD ["lambda_function.lambda_handler"]
-

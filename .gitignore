@@ -21,6 +21,10 @@ data/
 *.pkl
 *.h5
 *.pb
+*.keras
+*.hdf5
+keras_lambda/models/
+*.onnx
 
 # Environment
 .env

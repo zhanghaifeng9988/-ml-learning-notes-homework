@@ -1,0 +1,32 @@
+FROM python:3.13.5-slim
+
+ARG COMMIT_ID
+
+# 三个环境变量：# 不生成 .pyc 缓存文件  # Python 输出不缓冲（日志实时打印） # pip 不缓存下载包（镜像更小）
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+# 装两个系统工具：
+# git：用来从 GitHub 拉代码
+# build-essential：编译工具（某些 Python 包需要编译）
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    build-essential \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# 升级 pip 到最新版。
+RUN pip install --upgrade pip
+
+# 从 GitHub 直接安装 tf2onnx，并指定 commit。这样能确保用的是某个确定版本，避免版本冲突。
+RUN pip install git+https://github.com/onnx/tensorflow-onnx.git@${COMMIT_ID} 
+
+# 装 TensorFlow。tf2onnx 转换时需要它。
+RUN pip install --progress-bar on -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow
+
+# 容器启动后默认进入 /models 目录。
+WORKDIR /models
+
+# 容器启动后默认跑 bash，给你一个交互式终端。
+CMD ["bash"]
