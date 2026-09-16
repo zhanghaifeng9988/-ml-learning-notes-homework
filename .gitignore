@@ -25,6 +25,7 @@ data/
 *.hdf5
 keras_lambda/models/
 *.onnx
+neural_network_deep_learning/11_k8s/clothing-model/
 
 # Environment
 .env
