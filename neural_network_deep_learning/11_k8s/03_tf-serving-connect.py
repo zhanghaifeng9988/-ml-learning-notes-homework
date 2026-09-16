@@ -2,7 +2,7 @@
 # coding: utf-8
 
 #Autosave disabled
-get_ipython().run_line_magic('autosave', '0')
+# get_ipython().run_line_magic('autosave', '0')
 
 
 import numpy as np
@@ -60,6 +60,6 @@ classes = [
 ]
 
 
-dict(zip(classes, preds))
+print(dict(zip(classes, preds)))
 
 
