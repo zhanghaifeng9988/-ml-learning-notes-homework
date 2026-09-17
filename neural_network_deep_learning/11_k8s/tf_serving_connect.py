@@ -33,7 +33,7 @@ def np_to_protobuf(data):
 
 pb_request = predict_pb2.PredictRequest()
 
-pb_request.model_spec.name = 'clothing-model'
+pb_request.model_spec.name = 'clothing_model'
 pb_request.model_spec.signature_name = 'serving_default'
 
 pb_request.inputs['input_2'].CopyFrom(np_to_protobuf(X))
