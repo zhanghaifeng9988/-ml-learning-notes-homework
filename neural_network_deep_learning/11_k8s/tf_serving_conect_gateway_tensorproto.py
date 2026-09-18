@@ -7,7 +7,9 @@ from keras_image_helper import create_preprocessor
 from tensorflow.core.framework import tensor_pb2, tensor_shape_pb2, types_pb2
 
 
-host = 'localhost:8500'
+# host = 'localhost:8500' 
+import os
+host = os.environ.get('TF_SERVING_HOST', 'localhost:8500')
 
 channel = grpc.insecure_channel(host) #创建通道
 
@@ -29,7 +31,9 @@ def make_tensor_proto(data):
     proto_dtype = dtypes_as_dtype(data.dtype)
 
     tensor_proto = tensor_pb2.TensorProto(dtype=proto_dtype, tensor_shape=proto_shape)
-    tensor_proto.tensor_content = data.tostring()
+    #tensor_proto.tensor_content = data.tostring()
+    # docker镜像打包，依赖不符，修改代码
+    tensor_proto.tensor_content = data.tobytes()
 
     return tensor_proto
 

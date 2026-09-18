@@ -1,0 +1,23 @@
+FROM public.ecr.aws/docker/library/python:3.11-slim
+
+WORKDIR /app
+
+# 只装运行期需要的轻量依赖（编译期的 grpcio-tools、产物已替代的 tensorflow-serving-api 都不装）
+RUN pip install --no-cache-dir \
+    flask \
+    grpcio==1.84.0 \
+    numpy==2.3.2 \
+    keras-image-helper==0.0.2 \
+    gunicorn==26.2.0\
+    protobuf==7.36.1
+
+# 拷 gateway 代码 + proto 产物 + 授权
+COPY tf_serving_conect_gateway_tensorproto.py ./app.py
+COPY tensorflow/ ./tensorflow/
+COPY tensorflow_serving/ ./tensorflow_serving/
+COPY LICENSE .
+
+EXPOSE 9696
+
+# 生产用 gunicorn（app.py 里的 Flask 实例名是 app）
+CMD ["gunicorn", "-b", "0.0.0.0:9696", "-w", "4", "app:app"]
