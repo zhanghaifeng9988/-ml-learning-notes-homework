@@ -1,0 +1,10 @@
+#FROM public.ecr.aws/lambda/python:3.13
+
+#RUN pip install  -i https://pypi.tuna.tsinghua.edu.cn/simple \
+#onnxruntime numpy pillow keras-image-helper
+
+#COPY hair_classifier_v1.onnx.data ./
+#COPY hair_classifier_v1.onnx ./
+#COPY lambda_function_hairpredict.py ./
+
+#CMD ["lambda_function_hairpredict.lambda_handler"]
