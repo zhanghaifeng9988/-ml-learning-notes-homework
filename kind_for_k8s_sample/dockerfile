@@ -1,0 +1,17 @@
+FROM python:3.11.16-slim-bookworm
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+WORKDIR /app
+
+COPY ["pyproject.toml", "uv.lock", "./"]
+
+# uv sync 会自己创建 .venv 并严格按锁文件安装，--no-dev 表示不包含开发依赖
+RUN uv sync --locked --no-dev --no-install-project
+
+COPY "ping.py" .
+
+EXPOSE 9696
+
+# 用 uv run 执行，它会自动找到项目里的 .venv
+ENTRYPOINT ["uv", "run", "--no-sync", "gunicorn", "--bind=0.0.0.0:9696", "ping:app"]

@@ -1,0 +1,14 @@
+apiVersion: v1            # Service 用 v1 这个 API 版本，固定写法
+kind: Service             # 资源类型：Service
+
+metadata:
+  name: ping              # Service 的名字，集群内可以通过这个名字访问它
+
+spec:
+  type: LoadBalancer      # Service 类型：对外暴露，云环境会分配外部 IP
+  selector:               # 选择器：决定这个 Service 把流量转发给哪些 Pod
+    app: ping             # 匹配所有带 app=ping 标签的 Pod
+
+  ports:
+  - port: 80              # Service 自己监听的端口（集群内/外访问 Service 用的端口）
+    targetPort: 9696      # 转发到 Pod 的哪个端口（对应容器的 containerPort）

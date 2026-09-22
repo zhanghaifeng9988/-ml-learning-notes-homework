@@ -1,0 +1,1 @@
+# 这是第10章，06-kubernetes-simple-service.md  这一节的对应创建的目录；

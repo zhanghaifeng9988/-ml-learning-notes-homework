@@ -1,18 +1,18 @@
 
 services:
   tf-serving:
-    image: docker.m.daocloud.io/tensorflow/serving:2.13.1
+    image: clothing-serving:v1
     # restart: "no"  
     ports:
       - "8500:8500" 
       - "8501:8501"
-    volumes:
-      - ./clothing_model:/models/clothing_model/1
+    #volumes:
+    #  - ./clothing_model:/models/clothing_model/1
     environment:
       - MODEL_NAME=clothing_model
 
   gateway:
-    image: clothing_gateway:latest
+    image: clothing_gateway:v1_k8s
     # restart: "no"
     ports:
       - "9696:9696"

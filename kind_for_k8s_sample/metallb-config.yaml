@@ -1,0 +1,14 @@
+apiVersion: metallb.io/v1beta1       # MetalLB 的 API 版本
+kind: IPAddressPool                  # 资源类型：IP 地址池，给kind网络配置
+metadata:
+  name: zhfk8s              # 这个池子的名字
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.18.255.200-172.18.255.250
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement               # 资源类型：二层广播
+metadata:
+  name: empty
+  namespace: metallb-system

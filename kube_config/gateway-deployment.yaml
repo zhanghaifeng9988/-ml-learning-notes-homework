@@ -1,0 +1,35 @@
+apiVersion: apps/v1              # Deployment 的 API 版本，固定写法
+kind: Deployment                 # 资源类型
+
+metadata:
+  name: gateway                  # Deployment 名字
+
+spec:
+  selector:
+    matchLabels:
+      app: gateway               # 管理带 app=gateway 标签的 Pod
+
+  template:                      # Pod 模板
+    metadata:
+      labels:
+        app: gateway             # 给 Pod 打标签，要和上面 selector 一致
+
+    spec:
+      containers:
+      - name: gateway            # 容器名
+        image: clothing_gateway:v1_k8s   # 你的 Gateway 镜像
+        
+        resources:
+          requests:
+            memory: "512Mi"      # 最少 512MB 内存
+            cpu: "100m"          # 最少 0.1 核 CPU
+          limits: 
+            memory: "1024Mi"      # 最多 128MB 内存
+            cpu: "300m"          # 最多 0.1 核 CPU
+
+        ports:
+        - containerPort: 9696    # 容器监听 9696
+
+        env:                     # 环境变量
+          - name: TF_SERVING_HOST
+            value: tf-serving-clothing-model.default.svc.cluster.local:8500 # 代码用这个地址去发起 gRPC 调用

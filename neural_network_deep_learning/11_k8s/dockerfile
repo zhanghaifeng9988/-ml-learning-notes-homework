@@ -1,3 +1,5 @@
+#############---对gateway进行Docker化----#########
+
 FROM public.ecr.aws/docker/library/python:3.11-slim
 
 WORKDIR /app
@@ -17,7 +19,18 @@ COPY tensorflow/ ./tensorflow/
 COPY tensorflow_serving/ ./tensorflow_serving/
 COPY LICENSE .
 
-EXPOSE 9696
+#EXPOSE 9696
 
 # 生产用 gunicorn（app.py 里的 Flask 实例名是 app）
 CMD ["gunicorn", "-b", "0.0.0.0:9696", "-w", "4", "app:app"]
+
+
+
+#############对serving进行Docker化#########
+#FROM docker.m.daocloud.io/tensorflow/serving:2.13.1
+
+# 把模型复制进镜像，路径要和 TF Serving 约定一致
+#COPY clothing_model /models/clothing_model/1
+
+# 告诉 TF Serving 模型名
+#ENV MODEL_NAME=clothing_model
