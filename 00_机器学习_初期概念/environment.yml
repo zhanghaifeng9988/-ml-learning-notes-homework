@@ -1,4 +1,4 @@
-name: ml
+name: quant
 channels:
   - conda-forge
   - nodefaults      
