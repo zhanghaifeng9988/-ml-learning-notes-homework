@@ -1,0 +1,21 @@
+name: ml
+channels:
+  - conda-forge
+  - nodefaults      
+dependencies:
+  - python=3.11    
+  - numpy<2.0       
+  - pandas
+  - matplotlib
+  - seaborn
+  - scipy
+  - scikit-learn
+  - xgboost
+  - jupyter
+  - notebook
+  - ipykernel
+
+  - pip
+  - pip:
+    - mkdocs
+    - mkdocs-jupyter
