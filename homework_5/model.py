@@ -1,3 +1,4 @@
+# 特征预处理 数据清洗模块，作用是：把原始的记录，统一成模型训练时使用的格式。
 from __future__ import annotations
 
 import json
