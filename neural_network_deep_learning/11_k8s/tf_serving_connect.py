@@ -16,7 +16,7 @@ from keras_image_helper import create_preprocessor  #图像预处理器
 host = 'localhost:8500'
 
 channel = grpc.insecure_channel(host) #创建通道
-
+ 
 stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)   
 
 
